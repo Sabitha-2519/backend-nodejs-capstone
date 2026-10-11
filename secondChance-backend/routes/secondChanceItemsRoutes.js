@@ -104,7 +104,7 @@ router.put('/:id', async (req, res, next) => {
     if (updatepreloveItem) {
       res.json({ uploaded: 'success' })
     } else {
-     res.json({ uploaded: 'failed' })
+      res.json({ uploaded: 'failed' })
     }
   } catch (e) {
     next(e)
@@ -126,9 +126,9 @@ router.delete('/:id', async (req, res, next) => {
     }
     // Step 6: task 4 - insert code here
     await collection.deleteOne({ id })
-    res.json({'deleted':'success'})
-    } catch (e) {
-      next(e)
-    }
+    res.json({ deleted: 'success' })
+  } catch (e) {
+    next(e)
+  }
 })
 module.exports = router
