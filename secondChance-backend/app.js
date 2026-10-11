@@ -5,17 +5,17 @@ const cors = require('cors')
 const pinoLogger = require('./logger')
 const path = require('path')
 const connectToDatabase = require('./models/db')
-const {} = require('./util/import-mongo/index') //loadData
+const {loadData} = require('./util/import-mongo/index')
 const app = express()
-app.use('*',cors());
-const port = 3060;
+app.use('*', cors())
+const port = 3060
 
 // Connect to MongoDB; we just do this one time
 connectToDatabase().then(() => {
-    pinoLogger.info('Connected to DB');
+    pinoLogger.info('Connected to DB')
 })
-    .catch((e) => console.error('Failed to connect to DB', e));
-app.use(express.json());
+.catch((e) => console.error('Failed to connect to DB', e))
+app.use(express.json())
 
 // Route files
 const secondChanceRoutes = require('./routes/secondChanceItemsRoutes');
