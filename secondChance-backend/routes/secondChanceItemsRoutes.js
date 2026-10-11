@@ -102,9 +102,9 @@ router.put('/:id', async (req, res, next) => {
     )
     // Step 5: task 5 - insert code here
     if (updatepreloveItem) {
-     res.json( {'uploaded':'success'} )
+      res.json({ 'uploaded':'success' })
     } else {
-     res.json({'uploaded':'failed'})
+     res.json({ 'uploaded':'failed' })
     }
   } catch (e) {
     next(e)
