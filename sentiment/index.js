@@ -24,7 +24,7 @@ app.post('/sentiment', async (req, res) => {
     const analysisResult = analyzer.getSentiment(sentence.split(' '))
     const sentiment = 'neutral'
     if (analysisResult < 0) {
-      const sentiment = 'negative'
+      sentiment = 'negative'
     } else if (analysisResult > 0.33) {
       sentiment = 'positive'
     }
@@ -35,7 +35,7 @@ app.post('/sentiment', async (req, res) => {
   } catch (error) {
     logger.error(`Error performing sentiment analysis: ${error}`)
     res.status(500).json({ message: 'Error performing sentiment analysis' })
- }
+  }
 })
 // Start the server
 app.listen(port, () => {
