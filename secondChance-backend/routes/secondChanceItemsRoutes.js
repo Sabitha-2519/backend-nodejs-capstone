@@ -25,25 +25,25 @@ router.get('/', async (req, res, next) => {
     const db = await connectToDatabase()
     // Step 2: task 2 - Retrieve the secondChanceItems collection
     const collection = db.collection('secondChanceItems')
-     // Step 2: task 3 - Fetch all secondChanceItems
+    // Step 2: task 3 - Fetch all secondChanceItems
     const secondChanceItems = await collection.find({}).toArray()
     // Step 2: task 4 - Return secondChanceItems
-    res.json(secondChanceItems) 
-       
-    } catch (e) {
+	res.json(secondChanceItems)
+	
+  } catch (e) {
     logger.console.error('oops something went wrong', e)
     next(e)
-    }
+  }
 })
 // Add a new item
 router.post('/', upload.single('file'), async (req, res, next) => {
-    try {
+  try {
     // Task 1: Connect to MongoDB
     const db = await connectToDatabase()
     // Task 2: Get the secondChanceItems collection
-    const collection = db.collection("secondChanceItems")
+    const collection = db.collection('secondChanceItems')
     // Task 3: Create a new secondChanceItem from the request body
-    let secondChanceItem = req.body
+    const secondChanceItem = req.body
     // Task 4: Get the last id, increment it by 1, and assign it
     const lastItemQuery = await collection.find().sort({ id: -1 }).limit(1)
     await lastItemQuery.forEach(item => {
@@ -62,7 +62,7 @@ router.post('/', upload.single('file'), async (req, res, next) => {
 })
 // Get a single secondChanceItem by ID
 router.get('/:id', async (req, res, next) => {
-    try {
+  try {
     //Step 4: task 1 - insert code here
     const db = await connectToDatabase()
     //Step 4: task 2 - insert code here
@@ -74,13 +74,13 @@ router.get('/:id', async (req, res, next) => {
     return res.status(404).send("secondChanceItem not found")
 }
         res.json(secondChanceItem)
-    } catch (e) {
+  } catch (e) {
         next(e)
-    }
+  }
 })
 // Update and existing item
 router.put('/:id', async(req, res,next) => {
-    try {
+  try {
     //Step 5: task 1 - insert code here
     const db = await connectToDatabase()
     //Step 5: task 2 - insert code here
@@ -110,13 +110,13 @@ router.put('/:id', async(req, res,next) => {
     } else {
         res.json({"uploaded":"failed"})
     }
-    } catch (e) {
+  } catch (e) {
         next(e)
-    }
+  }
 })
 // Delete an existing item
 router.delete('/:id', async(req, res,next) => {
-    try {
+  try {
     //Step 6: task 1 - insert code here
     const db = await connectToDatabase()        
     //Step 6: task 2 - insert code here
@@ -131,8 +131,8 @@ router.delete('/:id', async(req, res,next) => {
     //Step 6: task 4 - insert code here
     await collection.deleteOne({ id })
     res.json({"deleted":"success"})        
-    } catch (e) {
+  } catch (e) {
     next(e)
-    }
+  }
 })
 module.exports = router
