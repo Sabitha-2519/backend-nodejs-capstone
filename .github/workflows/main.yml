@@ -1,23 +1,18 @@
 name: CI/CD
-
 on:
   push:
     branches: [master, main]
   pull_request:
     branches: [master, main]
-
 jobs:
   lint_js:
     name: Lint JavaScript Files
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-
       - name: Install Node.js
         uses: actions/setup-node@v4
-
       - name: Install and Run Linter
         run: |
           npm init -y
@@ -28,5 +23,4 @@ jobs:
           find ./secondChance-backend -name searchRoutes.js -exec ./node_modules/.bin/eslint -c .eslintrc.js {} +
           find ./secondChance-backend -name index.js -exec ./node_modules/.bin/eslint -c .eslintrc.js {} +
           find ./sentiment -name index.js -exec ./node_modules/.bin/eslint -c .eslintrc.js {} +
-
           echo "Linted all JS files successfully"
