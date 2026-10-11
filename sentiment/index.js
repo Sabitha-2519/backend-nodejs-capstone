@@ -20,11 +20,11 @@ app.post('/sentiment', async (req, res) => {
   const stemmer = natural.PorterStemmer
   const analyzer = new Analyzer('English', stemmer, 'afinn')
   // Perform sentiment analysis
-  try { 
+  try {
     const analysisResult = analyzer.getSentiment(sentence.split(' '))
     const sentiment = 'neutral'
     if (analysisResult < 0) {
-      sentiment = 'negative'
+      const sentiment = 'negative'
     } else if (analysisResult > 0.33) {
       sentiment = 'positive'
     }
@@ -39,5 +39,5 @@ app.post('/sentiment', async (req, res) => {
 })
 // Start the server
 app.listen(port, () => {
- logger.info(`Server running on port ${port}`)
+  logger.info(`Server running on port ${port}`)
 })
