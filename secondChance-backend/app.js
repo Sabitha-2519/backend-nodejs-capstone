@@ -45,7 +45,7 @@ app.use((err, req, res, next) => {
 });
 
 app.get("/",(req,res)=>{
-    res.send("Inside the server")
+    res.send("Inside the server");
 })
 
 app.listen(port, () => {
