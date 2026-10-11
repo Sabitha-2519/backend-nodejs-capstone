@@ -1,30 +1,30 @@
 const express = require('express')
 const multer = require('multer')
-const fs = require('fs')
 const router = express.Router()
+
 const connectToDatabase = require('../models/db')
 const logger = require('../logger')
 // Define the upload directory path
 const directoryPath = 'public/images'
 // Set up storage for uploaded files
 const storage = multer.diskStorage({
-destination: function (req, file, cb) {
-cb(null, directoryPath) // Specify the upload directory
+  destination: function (req, file, cb) {
+    cb(null, directoryPath) // Specify the upload directory
   },
   filename: function (req, file, cb) {
-  cb(null, file.originalname) // Use the original file name
-}
+    cb(null, file.originalname) // Use the original file name
+  }
 })
 const upload = multer({ storage: storage })
 
 // Get all secondChanceItems
 router.get('/', async (req, res, next) => {
-    logger.info('/ called')
-    try {
+  logger.info('/ called')
+  try {
     // Step 2: task 1 - Connect to MongoDB
     const db = await connectToDatabase()
     // Step 2: task 2 - Retrieve the secondChanceItems collection
-	const collection = db.collection("secondChanceItems")
+    const collection = db.collection('secondChanceItems')
      // Step 2: task 3 - Fetch all secondChanceItems
     const secondChanceItems = await collection.find({}).toArray()
     // Step 2: task 4 - Return secondChanceItems
