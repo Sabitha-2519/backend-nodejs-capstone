@@ -17,6 +17,7 @@ const port = 3060
 connectToDatabase()
   .then(() => {
     pinoLogger.info('Connected to DB')
+    // loadData() // uncomment if you want to use it
   })
   .catch(e => console.error('Failed to connect to DB', e))
 
