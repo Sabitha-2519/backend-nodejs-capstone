@@ -1,13 +1,13 @@
 /* jshint esversion: 8 */
-require('dotenv').config();
-const express = require('express');
-const cors = require('cors');
-const pinoLogger = require('./logger');
-const path = require('path');
-const connectToDatabase = require('./models/db');
-const { loadData } = require('./util/import-mongo/index');
-const app = express();
-app.use("*",cors());
+require('dotenv').config()
+const express = require('express')
+const cors = require('cors')
+const pinoLogger = require('./logger')
+const path = require('path')
+const connectToDatabase = require('./models/db')
+const {} = require('./util/import-mongo/index') //loadData
+const app = express()
+app.use('*',cors());
 const port = 3060;
 
 // Connect to MongoDB; we just do this one time
