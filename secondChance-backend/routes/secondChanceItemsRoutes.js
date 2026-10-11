@@ -68,7 +68,7 @@ router.get('/:id', async (req, res, next) => {
     const secondChanceItem = await collection.findOne({ id })
     // Step 4: task 4 - insert code here
     if (!secondChanceItem) {
-    return res.status(404).send('secondChanceItem not found')
+      return res.status(404).send('secondChanceItem not found')
     }
     res.json(secondChanceItem)
   } catch (e) {
@@ -76,7 +76,7 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 // Update and existing item
-router.put('/:id', async(req, res, next) => {
+router.put('/:id', async (req, res, next) => {
   try {
     // Step 5: task 1 - insert code here
     const db = await connectToDatabase()
@@ -85,18 +85,18 @@ router.put('/:id', async(req, res, next) => {
     // Step 5: task 3 - insert code here
     const secondChanceItem = await collection.findOne({ id })
     if (!secondChanceItem) {
-        logger.error('secondChanceItem not found')
-        return res.status(404).json({ error: 'secondChanceItem not found' })
-}
+      logger.error('secondChanceItem not found')
+      return res.status(404).json({ error: 'secondChanceItem not found' })
+    }
     // Step 5: task 4 - insert code here
     secondChanceItem.category = req.body.category
     secondChanceItem.condition = req.body.condition
     secondChanceItem.age_days = req.body.age_days
     secondChanceItem.description = req.body.description
-    secondChanceItem.age_years = Number((secondChanceItem.age_days/365).toFixed(1))
+    secondChanceItem.age_years = Number((secondChanceItem.age_days / 365).toFixed(1))
     secondChanceItem.updatedAt = new Date()
     const updatepreloveItem = await collection.findOneAndUpdate(
-    { id },
+      { id },
     { $set: secondChanceItem },
     { returnDocument: 'after' }
     )
