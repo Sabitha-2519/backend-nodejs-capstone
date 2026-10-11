@@ -16,8 +16,6 @@ const storage = multer.diskStorage({
   }
 })
 const upload = multer({ storage: storage })
-
-
 // Get all secondChanceItems
 router.get('/', async (req, res, next) => {
   logger.info('/ called')
@@ -47,28 +45,28 @@ router.post('/', upload.single('file'), async (req, res, next) => {
     // Task 4: Get the last id, increment it by 1, and assign it
     const lastItemQuery = await collection.find().sort({ id: -1 }).limit(1)
     await lastItemQuery.forEach(item => {
-    secondChanceItem.id = (parseInt(item.id) + 1).toString()
+      secondChanceItem.id = (parseInt(item.id) + 1).toString()
     })
     // Task 5: Set the current date
-	const dateAdded = Math.floor(new Date().getTime() / 1000)
+    const dateAdded = Math.floor(new Date().getTime() / 1000)
     secondChanceItem.dateAdded = dateAdded
     // Task 6: Insert the new item into the database
-    const insertResult = await collection.insertOne(secondChanceItem)    
+    const insertResult = await collection.insertOne(secondChanceItem)
     res.status(201).json(insertResult.ops[0])
-    } catch (e) {
+  } catch (e) {
     next(e)
-    }
+  }
 })
 // Get a single secondChanceItem by ID
 router.get('/:id', async (req, res, next) => {
   try {
-    //Step 4: task 1 - insert code here
+    // Step 4: task 1 - insert code here
     const db = await connectToDatabase()
-    //Step 4: task 2 - insert code here
-    const collection = db.collection("secondChanceItems")  
-    //Step 4: task 3 - insert code here
+    // Step 4: task 2 - insert code here
+    const collection = db.collection('secondChanceItems')  
+    // Step 4: task 3 - insert code here
     const secondChanceItem = await collection.findOne({ id })   
-    //Step 4: task 4 - insert code here
+    // Step 4: task 4 - insert code here
     if (!secondChanceItem) {
     return res.status(404).send("secondChanceItem not found")
 }
@@ -80,17 +78,17 @@ router.get('/:id', async (req, res, next) => {
 // Update and existing item
 router.put('/:id', async(req, res,next) => {
   try {
-    //Step 5: task 1 - insert code here
+    // Step 5: task 1 - insert code here
     const db = await connectToDatabase()
-    //Step 5: task 2 - insert code here
-    const collection = db.collection("secondChanceItems")
-    //Step 5: task 3 - insert code here
+    // Step 5: task 2 - insert code here
+    const collection = db.collection('secondChanceItems')
+    // Step 5: task 3 - insert code here
     const secondChanceItem = await collection.findOne({ id })
     if (!secondChanceItem) {
         logger.error('secondChanceItem not found')
         return res.status(404).json({ error: "secondChanceItem not found" })
 }
-    //Step 5: task 4 - insert code here
+    // Step 5: task 4 - insert code here
     secondChanceItem.category = req.body.category
     secondChanceItem.condition = req.body.condition
     secondChanceItem.age_days = req.body.age_days
@@ -102,7 +100,7 @@ router.put('/:id', async(req, res,next) => {
     { $set: secondChanceItem },
     { returnDocument: 'after' }
     )
-    //Step 5: task 5 - insert code here
+    // Step 5: task 5 - insert code here
     if(updatepreloveItem) {
         res.json({"uploaded":"success"})
     } else {
@@ -115,18 +113,18 @@ router.put('/:id', async(req, res,next) => {
 // Delete an existing item
 router.delete('/:id', async(req, res,next) => {
   try {
-    //Step 6: task 1 - insert code here
+    // Step 6: task 1 - insert code here
     const db = await connectToDatabase()
-    //Step 6: task 2 - insert code here
-    const collection = db.collection("secondChanceItems")
-    //Step 6: task 3 - insert code here
+    // Step 6: task 2 - insert code here
+    const collection = db.collection('secondChanceItems')
+    // Step 6: task 3 - insert code here
     const id = req.params.id
     const secondChanceItem = await collection.findOne({ id })
     if (!secondChanceItem) {
     logger.error('secondChanceItem not found')
     return res.status(404).json({ error: "secondChanceItem not found" })
     }
-    //Step 6: task 4 - insert code here
+    // Step 6: task 4 - insert code here
     await collection.deleteOne({ id })
     res.json({"deleted":"success"})
   } catch (e) {
