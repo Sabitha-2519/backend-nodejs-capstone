@@ -97,14 +97,14 @@ router.put('/:id', async (req, res, next) => {
     secondChanceItem.updatedAt = new Date()
     const updatepreloveItem = await collection.findOneAndUpdate(
       { id },
-    { $set: secondChanceItem },
-    { returnDocument: 'after' }
+      { $set: secondChanceItem },
+      { returnDocument: 'after' }
     )
     // Step 5: task 5 - insert code here
-    if(updatepreloveItem) {
-        res.json({"uploaded":"success"})
+    if (updatepreloveItem) {
+     res.json( {'uploaded':'success'} )
     } else {
-        res.json({"uploaded":"failed"})
+     res.json({'uploaded':'failed'})
     }
   } catch (e) {
     next(e)
@@ -126,7 +126,7 @@ router.delete('/:id', async(req, res,next) => {
     }
     // Step 6: task 4 - insert code here
     await collection.deleteOne({ id })
-    res.json({"deleted":"success"})
+    res.json({'deleted':'success'})
   } catch (e) {
     next(e)
   }
